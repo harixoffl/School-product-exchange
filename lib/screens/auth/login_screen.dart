@@ -1,11 +1,11 @@
 // lib/screens/auth/login_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../services/auth_service.dart';
-import '../home_screen.dart';
-import '../auth/register_screen.dart';
-import '../auth/forgot_password_screen.dart';
 import '../../widgets/custom_textfield.dart';
+import '../auth/register_screen.dart';
+import '../home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -63,129 +63,135 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Column(
-                      children: [
-                        SizedBox(height: size.height * 0.1),
-                        // Logo and title
-                        Hero(
-                          tag: 'app-logo',
-                          child: Material(
-                            color: Colors.transparent,
-                            child: CircleAvatar(
-                              radius: 50,
-                              backgroundColor: Colors.white,
-                              child: Padding(padding: const EdgeInsets.all(12.0), child: Icon(Icons.school_sharp)),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          'School Exchange',
-                          style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
-                        ),
-                        const SizedBox(height: 8),
-                        Text('Connect with your school community', style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white.withOpacity(0.9))),
-                        const SizedBox(height: 40),
-
-                        // Login card
-                        Material(
-                          elevation: 8,
-                          borderRadius: BorderRadius.circular(16),
-                          child: Container(
-                            width: 400,
-                            padding: const EdgeInsets.all(24),
-                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
-                            child: Form(
-                              key: _formKey,
-                              child: Column(
-                                children: [
-                                  Text('Welcome Back', style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-                                  const SizedBox(height: 16),
-                                  CustomTextField(
-                                    controller: _emailController,
-                                    label: 'Email',
-                                    hint: 'Enter your email',
-                                    prefixIcon: Icons.email_outlined,
-                                    keyboardType: TextInputType.emailAddress,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter your email';
-                                      }
-                                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                                        return 'Please enter a valid email';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  const SizedBox(height: 16),
-                                  CustomTextField(
-                                    controller: _passwordController,
-                                    label: 'Password',
-                                    hint: 'Enter your password',
-                                    prefixIcon: Icons.lock_outline,
-                                    obscureText: _obscurePassword,
-                                    suffixIcon: IconButton(
-                                      icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility, color: Colors.grey),
-                                      onPressed: () {
-                                        setState(() {
-                                          _obscurePassword = !_obscurePassword;
-                                        });
-                                      },
-                                    ),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter your password';
-                                      }
-                                      if (value.length < 6) {
-                                        return 'Password must be at least 6 characters';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: TextButton(
-                                      onPressed: () {
-                                        Navigator.push(context, MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()));
-                                      },
-                                      child: Text('Forgot Password?', style: theme.textTheme.bodyMedium?.copyWith(color: theme.primaryColor)),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  SizedBox(
-                                    width: double.infinity,
-                                    height: 50,
-                                    child: ElevatedButton(
-                                      onPressed: _isLoading ? null : _login,
-                                      style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), elevation: 0),
-                                      child: _isLoading
-                                          ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                                          : const Text('Login', style: TextStyle(fontSize: 16)),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 24),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text("Don't have an account?", style: theme.textTheme.bodyMedium),
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.push(context, MaterialPageRoute(builder: (_) => const RegisterScreen()));
-                                        },
-                                        child: Text(
-                                          'Register',
-                                          style: theme.textTheme.bodyMedium?.copyWith(color: theme.primaryColor, fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(height: size.height * 0.1),
+                          // Logo and title
+                          Hero(
+                            tag: 'app-logo',
+                            child: Material(
+                              color: Colors.transparent,
+                              child: CircleAvatar(
+                                radius: 50,
+                                backgroundColor: Colors.white,
+                                child: Padding(padding: const EdgeInsets.all(12.0), child: Icon(Icons.school_sharp)),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 16),
+                          Text(
+                            'Materials Exchange',
+                            style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+                          ),
+                          const SizedBox(height: 8),
+                          Text('Connect with your school community', style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white.withOpacity(0.9))),
+                          const SizedBox(height: 40),
+
+                          // Login card
+                          Material(
+                            elevation: 8,
+                            borderRadius: BorderRadius.circular(16),
+                            child: SingleChildScrollView(
+                              child: Container(
+                                width: 400,
+                                padding: const EdgeInsets.all(24),
+                                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
+                                child: Form(
+                                  key: _formKey,
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        Text('Welcome Back', style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
+                                        const SizedBox(height: 16),
+                                        CustomTextField(
+                                          controller: _emailController,
+                                          label: 'Email',
+                                          hint: 'Enter your email',
+                                          prefixIcon: Icons.email_outlined,
+                                          keyboardType: TextInputType.emailAddress,
+                                          validator: (value) {
+                                            if (value == null || value.isEmpty) {
+                                              return 'Please enter your email';
+                                            }
+                                            if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                                              return 'Please enter a valid email';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                        const SizedBox(height: 16),
+                                        CustomTextField(
+                                          controller: _passwordController,
+                                          label: 'Password',
+                                          hint: 'Enter your password',
+                                          prefixIcon: Icons.lock_outline,
+                                          obscureText: _obscurePassword,
+                                          suffixIcon: IconButton(
+                                            icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility, color: Colors.grey),
+                                            onPressed: () {
+                                              setState(() {
+                                                _obscurePassword = !_obscurePassword;
+                                              });
+                                            },
+                                          ),
+                                          validator: (value) {
+                                            if (value == null || value.isEmpty) {
+                                              return 'Please enter your password';
+                                            }
+                                            if (value.length < 6) {
+                                              return 'Password must be at least 6 characters';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                        const SizedBox(height: 8),
+                                        // Align(
+                                        //   alignment: Alignment.centerRight,
+                                        //   child: TextButton(
+                                        //     onPressed: () {
+                                        //       Navigator.push(context, MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()));
+                                        //     },
+                                        //     child: Text('Forgot Password?', style: theme.textTheme.bodyMedium?.copyWith(color: theme.primaryColor)),
+                                        //   ),
+                                        // ),
+                                        const SizedBox(height: 16),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          height: 50,
+                                          child: ElevatedButton(
+                                            onPressed: _isLoading ? null : _login,
+                                            style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), elevation: 0),
+                                            child: _isLoading
+                                                ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                                                : const Text('Login', style: TextStyle(fontSize: 16)),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 24),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Text("Don't have an account?", style: theme.textTheme.bodyMedium),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.push(context, MaterialPageRoute(builder: (_) => const RegisterScreen()));
+                                              },
+                                              child: Text(
+                                                'Register',
+                                                style: theme.textTheme.bodyMedium?.copyWith(color: theme.primaryColor, fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

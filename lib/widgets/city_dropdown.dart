@@ -10,7 +10,7 @@ class CityDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cities = ['Colombo', 'Kandy', 'Galle', 'Jaffna', 'Negombo', 'Matara', 'Anuradhapura'];
+    final cities = ['Ondipudur', 'Singanallur', 'Ukkadam', 'Hope college', 'Gandhipuram', 'R.S puram', 'Sulur'];
 
     return DropdownButtonFormField<String>(
       value: selectedCity,
@@ -19,7 +19,7 @@ class CityDropdown extends StatelessWidget {
         if (showAllOption) const DropdownMenuItem(value: null, child: Text('All Cities')),
         ...cities.map((city) {
           return DropdownMenuItem(value: city, child: Text(city));
-        }).toList(),
+        }),
       ],
       onChanged: onChanged,
     );

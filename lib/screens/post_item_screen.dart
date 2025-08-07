@@ -2,16 +2,17 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
 import '../../models/item.dart';
-import '../../services/item_service.dart';
 import '../../services/auth_service.dart';
+import '../../services/item_service.dart';
 import '../../widgets/category_chip.dart';
 import '../../widgets/city_dropdown.dart';
 
 class PostItemScreen extends StatefulWidget {
   final Item? itemToEdit;
 
-  const PostItemScreen({Key? key, this.itemToEdit}) : super(key: key);
+  const PostItemScreen({super.key, this.itemToEdit});
 
   @override
   State<PostItemScreen> createState() => _PostItemScreenState();
@@ -33,7 +34,7 @@ class _PostItemScreenState extends State<PostItemScreen> {
     _titleController = TextEditingController(text: widget.itemToEdit?.title ?? '');
     _descriptionController = TextEditingController(text: widget.itemToEdit?.description ?? '');
     _selectedCategory = widget.itemToEdit?.category ?? 'Books';
-    _selectedCity = widget.itemToEdit?.city ?? 'Colombo';
+    _selectedCity = widget.itemToEdit?.city ?? 'Ondipudur';
     _imagePath = widget.itemToEdit?.imagePath ?? '';
   }
 
